@@ -65,6 +65,7 @@
       margin:0 0 18px;
       font-size: clamp(14px, 2.1vw, 18px);
       opacity:.85;
+      font-weight:600;
     }
 
     .btns{
@@ -107,12 +108,12 @@
     }
 
     .message strong{ color: var(--accent); }
+
     @keyframes pop{
       from{ transform: translateY(6px); opacity:0; }
       to{ transform: translateY(0); opacity:1; }
     }
 
-    /* floating hearts */
     .heart{
       position:absolute;
       left: var(--x);
@@ -122,7 +123,6 @@
       transform: rotate(45deg);
       background: rgba(225,29,72,.18);
       animation: floatUp var(--d) linear infinite;
-      filter: blur(.1px);
       z-index:1;
     }
     .heart::before,
@@ -148,28 +148,20 @@
       font-size:13px;
       opacity:.7;
     }
-
-    .tiny{
-      font-size:12px;
-      opacity:.7;
-      margin-top:10px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Hearts background -->
   <div id="hearts"></div>
 
   <div class="wrap">
     <div class="card">
       <div class="badge">💌 Valentýnský vzkaz</div>
 
-      <!-- UPRAV SI: jméno -->
-      <h1>Pro <span id="name">Tebe</span> 💗</h1>
+      <h1>Pro Klárku ❤️</h1>
 
       <p class="sub">
-        Malá stránka s jedním velkým vzkazem.
+        Miluju tě víc jak spinks a Kukýska
       </p>
 
       <div class="btns">
@@ -177,7 +169,6 @@
         <button class="ghost" id="confetti">Přidat trochu lásky</button>
       </div>
 
-      <!-- UPRAV SI: text vzkazu -->
       <div class="message" id="msg">
         <strong>Všechno nejlepší k Valentýnu!</strong>
         Děkuju, že jsi. 💘
@@ -187,31 +178,23 @@
 
         <strong>Jsi můj oblíbený člověk.</strong>
       </div>
-
-      <div class="tiny">Tip: tenhle soubor stačí uložit jako <strong>valentyn.html</strong> a otevřít v prohlížeči.</div>
     </div>
 
     <div class="footer">Made with ♥</div>
   </div>
 
   <script>
-    // ====== UPRAV SI: jméno přímo tady (nebo v HTML) ======
-    const receiverName = "Tebe"; // např. "Aničku" / "Marka" / "Lásko"
-    document.getElementById("name").textContent = receiverName;
-
-    // Reveal message
     const msg = document.getElementById("msg");
+
     document.getElementById("reveal").addEventListener("click", () => {
       msg.style.display = "block";
       pulseHearts(18);
     });
 
-    // "Confetti" = burst of hearts
     document.getElementById("confetti").addEventListener("click", () => {
       pulseHearts(26);
     });
 
-    // Floating hearts background
     const hearts = document.getElementById("hearts");
 
     function makeHeart() {
@@ -228,15 +211,12 @@
       h.style.background = `rgba(225, 29, 72, ${alpha})`;
 
       hearts.appendChild(h);
-      // cleanup
       setTimeout(() => h.remove(), dur * 1000);
     }
 
-    // steady background
     setInterval(makeHeart, 450);
     for (let i = 0; i < 14; i++) setTimeout(makeHeart, i * 120);
 
-    // burst
     function pulseHearts(n) {
       for (let i = 0; i < n; i++) setTimeout(makeHeart, i * 40);
     }
