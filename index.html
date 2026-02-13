@@ -1,191 +1,189 @@
 <!doctype html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Valentýn 💘</title>
-  <style>
-    :root{
-      --bg1:#fff0f5;
-      --bg2:#ffe6ee;
-      --card:#ffffffcc;
-      --text:#1f1f1f;
-      --accent:#e11d48;
-      --accent2:#fb7185;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Valentýn 💘</title>
 
-    *{box-sizing:border-box}
+<style>
+:root{
+  --accent:#e11d48;
+  --accent2:#fb7185;
+}
 
-    body{
-      margin:0;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background: radial-gradient(1200px 800px at 20% 20%, var(--bg2), transparent 60%),
-                  radial-gradient(1200px 800px at 80% 70%, var(--bg1), transparent 55%),
-                  linear-gradient(135deg, #fff, #ffeef4);
-      overflow:hidden;
-    }
+*{box-sizing:border-box}
 
-    .wrap{
-      width:min(720px, 92vw);
-      padding:28px;
-      position:relative;
-      z-index:2;
-    }
+body{
+  margin:0;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg,#fff,#ffeef4);
+  overflow:hidden;
+}
 
-    .card{
-      background:var(--card);
-      border:1px solid rgba(225,29,72,.15);
-      border-radius:24px;
-      padding:28px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.08);
-      backdrop-filter: blur(10px);
-      transition: transform .3s ease;
-    }
+/* OBAL */
+.wrap{
+  width:min(720px,92vw);
+  padding:28px;
+  position:relative;
+  z-index:2;
+}
 
-    /* SHAKE */
-    .shake {
-      animation: shake .4s ease;
-    }
+/* KARTA */
+.card{
+  background:white;
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
+  position:relative;
+  transition:all .6s ease;
+}
 
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
-      100% { transform: translateX(0); }
-    }
+/* PROMĚNA NA SRDCE */
+.card.heart-mode{
+  width:260px;
+  height:260px;
+  padding:0;
+  background:#fb7185;
+  border-radius:0;
+  transform:rotate(45deg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:pulse 1.5s ease-in-out infinite;
+}
 
-    /* PULSE */
-    .pulse {
-      animation: pulse 1.2s ease-in-out infinite;
-    }
+.card.heart-mode::before,
+.card.heart-mode::after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  background:#fb7185;
+  border-radius:50%;
+}
 
-    @keyframes pulse {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.03); }
-      100% { transform: scale(1); }
-    }
+.card.heart-mode::before{
+  top:-130px;
+  left:0;
+}
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      background: rgba(225,29,72,.10);
-      border: 1px solid rgba(225,29,72,.18);
-      font-weight:600;
-    }
+.card.heart-mode::after{
+  left:-130px;
+  top:0;
+}
 
-    h1{
-      margin:18px 0 10px;
-      font-size: clamp(28px, 4.5vw, 44px);
-      line-height:1.1;
-      letter-spacing:-.02em;
-    }
+.card.heart-mode *{
+  display:none;
+}
 
-    .sub{
-      margin:0 0 18px;
-      font-size: clamp(14px, 2.1vw, 18px);
-      opacity:.85;
-      font-weight:600;
-    }
+.card.heart-mode::after,
+.card.heart-mode::before{
+  display:block;
+}
 
-    .btns{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:18px;
-    }
+/* PULZ */
+@keyframes pulse{
+  0%{transform:rotate(45deg) scale(1);}
+  50%{transform:rotate(45deg) scale(1.07);}
+  100%{transform:rotate(45deg) scale(1);}
+}
 
-    button{
-      border:none;
-      cursor:pointer;
-      border-radius:999px;
-      padding:12px 16px;
-      font-weight:700;
-      font-size:15px;
-    }
+/* TEXT */
+.badge{
+  font-weight:600;
+}
 
-    .primary{
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:white;
-    }
+h1{
+  margin:18px 0 10px;
+}
 
-    .ghost{
-      background: rgba(255,255,255,.75);
-      border: 1px solid rgba(0,0,0,.08);
-    }
+.sub{
+  font-weight:600;
+}
 
-    .message{
-      margin-top:18px;
-      padding:20px;
-      border-radius:18px;
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(225,29,72,.16);
-      display:none;
-      line-height:1.6;
-      font-size:18px;
-    }
+.btns{
+  margin-top:18px;
+}
 
-    .big-heart{
-      font-size:40px;
-      color:#fb7185;
-      display:inline-block;
-    }
+button{
+  border:none;
+  cursor:pointer;
+  border-radius:999px;
+  padding:12px 16px;
+  font-weight:700;
+  margin-right:10px;
+}
 
-    .footer{
-      margin-top:16px;
-      font-size:14px;
-      opacity:.8;
-      font-weight:600;
-    }
+.primary{
+  background: linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+}
 
-    /* floating hearts */
-    .heart{
-      position:absolute;
-      left: var(--x);
-      top: 110%;
-      width: var(--s);
-      height: var(--s);
-      transform: rotate(45deg);
-      background: rgba(225,29,72,.18);
-      animation: floatUp var(--d) linear infinite;
-      z-index:1;
-    }
+.ghost{
+  background:#f3f3f3;
+}
 
-    .heart::before,
-    .heart::after{
-      content:"";
-      position:absolute;
-      width:100%;
-      height:100%;
-      background: inherit;
-      border-radius:50%;
-    }
+.message{
+  margin-top:18px;
+  display:none;
+  line-height:1.6;
+  font-size:18px;
+}
 
-    .heart::before{ left:-50%; }
-    .heart::after{ top:-50%; }
+.big-heart{
+  font-size:40px;
+  color:#fb7185;
+}
 
-    @keyframes floatUp{
-      from{ transform: translateY(0) rotate(45deg); opacity:0; }
-      10%{ opacity:1; }
-      to{ transform: translateY(-140vh) rotate(45deg); opacity:0; }
-    }
-  </style>
+/* POZADÍ SRDÍČKA */
+.heart{
+  position:absolute;
+  left:var(--x);
+  top:110%;
+  width:var(--s);
+  height:var(--s);
+  transform:rotate(45deg);
+  background:rgba(225,29,72,.2);
+  animation:floatUp var(--d) linear infinite;
+}
+
+.heart::before,
+.heart::after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:inherit;
+  border-radius:50%;
+}
+
+.heart::before{left:-50%;}
+.heart::after{top:-50%;}
+
+@keyframes floatUp{
+  from{transform:translateY(0) rotate(45deg);opacity:0;}
+  10%{opacity:1;}
+  to{transform:translateY(-140vh) rotate(45deg);opacity:0;}
+}
+
+.footer{
+  margin-top:16px;
+  font-weight:600;
+}
+</style>
 </head>
+
 <body>
 
 <div id="hearts"></div>
 
 <div class="wrap">
-  <div class="card">
-    <div class="badge">💌 Valentýnský vzkaz</div>
+  <div class="card" id="card">
+
+    <div class="badge">Valentýnka pro Kajíska 💌</div>
 
     <h1>Pro Klárku ❤️</h1>
 
@@ -203,6 +201,7 @@
       Na ty horší chvilky i na ty lepší. <br><br>
       Ale hlavně budeme spolu <span class="big-heart">💗</span>
     </div>
+
   </div>
 
   <div class="footer">od Tomíka</div>
@@ -210,7 +209,7 @@
 
 <script>
 const msg = document.getElementById("msg");
-const card = document.querySelector(".card");
+const card = document.getElementById("card");
 
 document.getElementById("reveal").addEventListener("click", () => {
   msg.style.display = "block";
@@ -218,44 +217,31 @@ document.getElementById("reveal").addEventListener("click", () => {
 });
 
 document.getElementById("confetti").addEventListener("click", () => {
-
-  // 40 srdcí
   pulseHearts(40);
-
-  // zatřesení
-  card.classList.add("shake");
-  setTimeout(() => card.classList.remove("shake"), 400);
-
-  // následné pulzování
-  setTimeout(() => {
-    card.classList.add("pulse");
-    setTimeout(() => card.classList.remove("pulse"), 3500);
-  }, 400);
+  card.classList.add("heart-mode");
 });
 
 const hearts = document.getElementById("hearts");
 
-function makeHeart() {
-  const h = document.createElement("div");
-  h.className = "heart";
-  const size = 10 + Math.random() * 22;
-  const dur  = 6 + Math.random() * 8;
-  const x    = Math.random() * 100;
-  const alpha = 0.10 + Math.random() * 0.22;
+function makeHeart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  const size=10+Math.random()*22;
+  const dur=6+Math.random()*8;
+  const x=Math.random()*100;
 
-  h.style.setProperty("--s", size + "px");
-  h.style.setProperty("--d", dur + "s");
-  h.style.setProperty("--x", x + "vw");
-  h.style.background = `rgba(225, 29, 72, ${alpha})`;
+  h.style.setProperty("--s",size+"px");
+  h.style.setProperty("--d",dur+"s");
+  h.style.setProperty("--x",x+"vw");
 
   hearts.appendChild(h);
-  setTimeout(() => h.remove(), dur * 1000);
+  setTimeout(()=>h.remove(),dur*1000);
 }
 
-setInterval(makeHeart, 450);
+setInterval(makeHeart,450);
 
-function pulseHearts(n) {
-  for (let i = 0; i < n; i++) setTimeout(makeHeart, i * 40);
+function pulseHearts(n){
+  for(let i=0;i<n;i++) setTimeout(makeHeart,i*40);
 }
 </script>
 
