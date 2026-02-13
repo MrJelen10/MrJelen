@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Valentýn 💘</title>
+  <style>
+    :root{
+      --bg1:#fff0f5;
+      --bg2:#ffe6ee;
+      --card:#ffffffcc;
+      --text:#1f1f1f;
+      --accent:#e11d48;
+      --accent2:#fb7185;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 20% 20%, var(--bg2), transparent 60%),
+                  radial-gradient(1200px 800px at 80% 70%, var(--bg1), transparent 55%),
+                  linear-gradient(135deg, #fff, #ffeef4);
+      overflow:hidden;
+    }
+
+    .wrap{
+      width:min(720px, 92vw);
+      padding:28px;
+      position:relative;
+      z-index:2;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(225,29,72,.15);
+      border-radius:24px;
+      padding:28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(225,29,72,.10);
+      border: 1px solid rgba(225,29,72,.18);
+      font-weight:600;
+    }
+
+    h1{
+      margin:18px 0 10px;
+      font-size: clamp(28px, 4.5vw, 44px);
+      line-height:1.1;
+      letter-spacing:-.02em;
+    }
+
+    .sub{
+      margin:0 0 18px;
+      font-size: clamp(14px, 2.1vw, 18px);
+      opacity:.85;
+    }
+
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    button{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:12px 16px;
+      font-weight:700;
+      font-size:15px;
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:white;
+      box-shadow: 0 10px 22px rgba(225,29,72,.25);
+    }
+    .primary:active{ transform: translateY(1px) scale(.99); }
+    .ghost{
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(0,0,0,.08);
+    }
+
+    .message{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius:18px;
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(225,29,72,.16);
+      display:none;
+      animation: pop .35s ease;
+      white-space: pre-line;
+    }
+
+    .message strong{ color: var(--accent); }
+    @keyframes pop{
+      from{ transform: translateY(6px); opacity:0; }
+      to{ transform: translateY(0); opacity:1; }
+    }
+
+    /* floating hearts */
+    .heart{
+      position:absolute;
+      left: var(--x);
+      top: 110%;
+      width: var(--s);
+      height: var(--s);
+      transform: rotate(45deg);
+      background: rgba(225,29,72,.18);
+      animation: floatUp var(--d) linear infinite;
+      filter: blur(.1px);
+      z-index:1;
+    }
+    .heart::before,
+    .heart::after{
+      content:"";
+      position:absolute;
+      width:100%;
+      height:100%;
+      background: inherit;
+      border-radius:50%;
+    }
+    .heart::before{ left:-50%; top:0; }
+    .heart::after{ left:0; top:-50%; }
+
+    @keyframes floatUp{
+      from{ transform: translateY(0) rotate(45deg); opacity:0; }
+      10%{ opacity:1; }
+      to{ transform: translateY(-140vh) rotate(45deg); opacity:0; }
+    }
+
+    .footer{
+      margin-top:16px;
+      font-size:13px;
+      opacity:.7;
+    }
+
+    .tiny{
+      font-size:12px;
+      opacity:.7;
+      margin-top:10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hearts background -->
+  <div id="hearts"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="badge">💌 Valentýnský vzkaz</div>
+
+      <!-- UPRAV SI: jméno -->
+      <h1>Pro <span id="name">Tebe</span> 💗</h1>
+
+      <p class="sub">
+        Malá stránka s jedním velkým vzkazem.
+      </p>
+
+      <div class="btns">
+        <button class="primary" id="reveal">Otevřít vzkaz</button>
+        <button class="ghost" id="confetti">Přidat trochu lásky</button>
+      </div>
+
+      <!-- UPRAV SI: text vzkazu -->
+      <div class="message" id="msg">
+        <strong>Všechno nejlepší k Valentýnu!</strong>
+        Děkuju, že jsi. 💘
+
+        Přeju si, ať máme co nejvíc společných chvil, smíchu
+        a malých radostí, na které se nezapomíná.
+
+        <strong>Jsi můj oblíbený člověk.</strong>
+      </div>
+
+      <div class="tiny">Tip: tenhle soubor stačí uložit jako <strong>valentyn.html</strong> a otevřít v prohlížeči.</div>
+    </div>
+
+    <div class="footer">Made with ♥</div>
+  </div>
+
+  <script>
+    // ====== UPRAV SI: jméno přímo tady (nebo v HTML) ======
+    const receiverName = "Tebe"; // např. "Aničku" / "Marka" / "Lásko"
+    document.getElementById("name").textContent = receiverName;
+
+    // Reveal message
+    const msg = document.getElementById("msg");
+    document.getElementById("reveal").addEventListener("click", () => {
+      msg.style.display = "block";
+      pulseHearts(18);
+    });
+
+    // "Confetti" = burst of hearts
+    document.getElementById("confetti").addEventListener("click", () => {
+      pulseHearts(26);
+    });
+
+    // Floating hearts background
+    const hearts = document.getElementById("hearts");
+
+    function makeHeart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      const size = 10 + Math.random() * 22;
+      const dur  = 6 + Math.random() * 8;
+      const x    = Math.random() * 100;
+      const alpha = 0.10 + Math.random() * 0.22;
+
+      h.style.setProperty("--s", size + "px");
+      h.style.setProperty("--d", dur + "s");
+      h.style.setProperty("--x", x + "vw");
+      h.style.background = `rgba(225, 29, 72, ${alpha})`;
+
+      hearts.appendChild(h);
+      // cleanup
+      setTimeout(() => h.remove(), dur * 1000);
+    }
+
+    // steady background
+    setInterval(makeHeart, 450);
+    for (let i = 0; i < 14; i++) setTimeout(makeHeart, i * 120);
+
+    // burst
+    function pulseHearts(n) {
+      for (let i = 0; i < n; i++) setTimeout(makeHeart, i * 40);
+    }
+  </script>
+</body>
+</html>
