@@ -98,16 +98,22 @@
 
     .message{
       margin-top:18px;
-      padding:16px 18px;
+      padding:20px;
       border-radius:18px;
       background: rgba(255,255,255,.65);
       border: 1px solid rgba(225,29,72,.16);
       display:none;
       animation: pop .35s ease;
-      white-space: pre-line;
+      line-height:1.6;
+      font-size:18px;
     }
 
-    .message strong{ color: var(--accent); }
+    .big-heart{
+      font-size:38px;
+      color:#fb7185;
+      display:inline-block;
+      transform: translateY(6px);
+    }
 
     @keyframes pop{
       from{ transform: translateY(6px); opacity:0; }
@@ -145,8 +151,9 @@
 
     .footer{
       margin-top:16px;
-      font-size:13px;
-      opacity:.7;
+      font-size:14px;
+      opacity:.8;
+      font-weight:600;
     }
   </style>
 </head>
@@ -170,17 +177,13 @@
       </div>
 
       <div class="message" id="msg">
-        <strong>Všechno nejlepší k Valentýnu!</strong>
-        Děkuju, že jsi. 💘
-
-        Přeju si, ať máme co nejvíc společných chvil, smíchu
-        a malých radostí, na které se nezapomíná.
-
-        <strong>Jsi můj oblíbený člověk.</strong>
+        Seš můj bobík a moc moc se těším na všechno, co spolu prožijeme ❤️  
+        Na ty horší chvilky i na ty lepší.  
+        Ale hlavně budeme spolu <span class="big-heart">💗</span>
       </div>
     </div>
 
-    <div class="footer">Made with ♥</div>
+    <div class="footer">od Tomíka</div>
   </div>
 
   <script>
@@ -223,3 +226,4 @@
   </script>
 </body>
 </html>
+
